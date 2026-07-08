@@ -1,5 +1,7 @@
 # FleetOps Agent 🚚
 
+[![CI](https://github.com/tsh52110/fleet-ops-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/tsh52110/fleet-ops-agent/actions/workflows/ci.yml)
+
 **A fleet-maintenance AI agent with an evaluation-first workflow** — tool-calling over a
 synthetic truck maintenance/fault-code SQLite database, scored against a golden dataset
 with deterministic tool-selection checks and LLM-as-judge answer grading, wired into CI,
