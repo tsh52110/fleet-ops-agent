@@ -23,9 +23,16 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Regenerate DB and verify it matches the committed fleet.db
+        # Compare logical content (SQL dump), not raw bytes — SQLite file bytes
+        # vary across library versions even for identical data.
         run: |
           python src/generate_data.py --db /tmp/fleet_ci.db
-          cmp fleet.db /tmp/fleet_ci.db && echo "fleet.db reproducible"
+          python - <<'EOF'
+          import sqlite3
+          dump = lambda p: "\n".join(sqlite3.connect(p).iterdump())
+          assert dump("fleet.db") == dump("/tmp/fleet_ci.db"), "generated DB content differs from committed fleet.db"
+          print("fleet.db reproducible (content-identical)")
+          EOF
 
       - name: Unit tests (incl. run_sql write-refusal guardrail)
         run: pytest tests/ -q
