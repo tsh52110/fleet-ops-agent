@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live_evals:
+        description: "Run LIVE regression evals with judge threshold (uses ANTHROPIC_API_KEY secret)"
+        type: boolean
+        default: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Regenerate DB and verify it matches the committed fleet.db
+        run: |
+          python src/generate_data.py --db /tmp/fleet_ci.db
+          cmp fleet.db /tmp/fleet_ci.db && echo "fleet.db reproducible"
+
+      - name: Unit tests (incl. run_sql write-refusal guardrail)
+        run: pytest tests/ -q
+
+      - name: Assert run_sql refuses write queries (explicit CI gate)
+        run: |
+          python - <<'EOF'
+          from src.tools import run_sql
+          for stmt in ("DELETE FROM trucks", "DROP TABLE parts",
+                       "UPDATE trucks SET mileage=0",
+                       "SELECT 1; DELETE FROM trucks"):
+              result = run_sql(stmt)
+              assert "error" in result, f"GUARDRAIL FAILURE: {stmt!r} was not refused"
+          print("All write queries refused.")
+          EOF
+
+      - name: Regression evals — mock mode (harness + guardrails, no LLM)
+        run: python evals/run_evals.py --mock --subset regression --min-tool-accuracy 1.0
+
+      - name: Upload eval results
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results-mock
+          path: evals/results/
+
+  live-evals:
+    # Manual dispatch only — runs the real agent + LLM judge on the 10-case
+    # regression subset and enforces score thresholds. Requires the
+    # ANTHROPIC_API_KEY repository secret.
+    if: github.event_name == 'workflow_dispatch' && inputs.live_evals
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Live regression evals with judge threshold
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python evals/run_evals.py --live --subset regression \
+            --min-tool-accuracy 0.85 --min-judge-score 4.0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eval-results-live
+          path: evals/results/
