@@ -1,0 +1,84 @@
+truck_id,event_date,event_type,fault_code,description,part_id,labor_hours,cost,technician,odometer
+T-001,2026-04-12,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.4,736.5,R. Okafor,297845
+T-001,2026-02-04,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.3,858.0,L. Nguyen,278715
+T-001,2025-12-13,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.2,709.5,R. Okafor,289233
+T-001,2025-09-06,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.8,790.5,S. Patel,288879
+T-002,2026-03-31,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.6,898.5,L. Nguyen,378584
+T-002,2026-03-05,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.2,844.5,J. Chen,381531
+T-002,2026-04-09,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.5,750.0,M. Alvarez,380516
+T-002,2025-11-03,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.9,804.0,S. Patel,385051
+T-004,2026-05-22,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,1.8,655.5,M. Alvarez,250107
+T-004,2025-12-16,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.3,723.0,L. Nguyen,244070
+T-004,2026-02-08,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.6,763.5,J. Chen,251999
+T-004,2025-10-07,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.6,898.5,M. Alvarez,258411
+T-004,2026-01-02,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.7,912.0,S. Patel,238971
+T-004,2025-11-06,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.9,939.0,R. Okafor,224856
+T-005,2025-11-18,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,1.8,655.5,J. Chen,413459
+T-005,2025-09-04,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.0,817.5,S. Patel,411840
+T-005,2025-10-08,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.1,831.0,R. Okafor,413819
+T-005,2026-01-07,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.7,777.0,M. Alvarez,433916
+T-005,2025-11-19,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.3,723.0,R. Okafor,421787
+T-005,2026-04-15,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.3,723.0,D. Kowalski,448795
+T-006,2026-01-08,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,2.2,709.5,M. Alvarez,470695
+T-006,2025-10-25,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.9,939.0,R. Okafor,474498
+T-006,2026-06-29,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.4,871.5,D. Kowalski,486567
+T-006,2026-03-07,fault,SPN-3226-FMI-4,"Recurring NOx sensor fault; sensor replaced, regen performed",P-001,3.5,885.0,R. Okafor,469836
+T-011,2026-02-01,fault,SPN-627-FMI-4,Cold-start low-voltage fault; battery load-tested,,1.3,175.5,L. Nguyen,471542
+T-008,2025-05-10,fault,SPN-4094-FMI-31,DEF quality/dosing fault - derate imminent. Action: Verify DEF quality; replace DEF doser if faulty,,5.8,783.0,S. Patel,77256
+T-007,2025-03-06,fault,SPN-4094-FMI-31,DEF quality/dosing fault - derate imminent. Action: Verify DEF quality; replace DEF doser if faulty,P-008,1.2,884.0,S. Patel,242942
+T-011,2025-05-28,fault,SPN-639-FMI-9,J1939 CAN bus - abnormal update rate. Action: Inspect CAN harness and connectors; check terminating resistors,P-006,5.9,914.9,D. Kowalski,504538
+T-007,2025-12-13,fault,SPN-111-FMI-17,Coolant level below normal. Action: Top off coolant; pressure-test for leaks,P-004,5.4,886.25,R. Okafor,276662
+T-010,2025-08-11,fault,SPN-100-FMI-1,"Engine oil pressure - low, most severe. Action: Stop vehicle; check oil level and pressure sensor; inspect oil pump",,2.5,337.5,M. Alvarez,267107
+T-007,2026-03-09,fault,SPN-171-FMI-3,Ambient air temp sensor - voltage above normal. Action: Replace ambient air temperature sensor,,4.6,621.0,D. Kowalski,268985
+T-008,2026-01-19,fault,SPN-4094-FMI-31,DEF quality/dosing fault - derate imminent. Action: Verify DEF quality; replace DEF doser if faulty,,3.6,486.0,J. Chen,71606
+T-009,2025-02-14,fault,SPN-791-FMI-5,Trailer ABS lamp circuit - open circuit. Action: Inspect ABS lamp circuit wiring and connector,P-007,5.3,1249.6,S. Patel,501596
+T-008,2026-05-17,fault,SPN-171-FMI-3,Ambient air temp sensor - voltage above normal. Action: Replace ambient air temperature sensor,,1.1,148.5,M. Alvarez,93611
+T-005,2025-02-24,fault,SPN-111-FMI-17,Coolant level below normal. Action: Top off coolant; pressure-test for leaks,,4.1,553.5,M. Alvarez,439903
+T-005,2026-07-07,fault,SPN-171-FMI-3,Ambient air temp sensor - voltage above normal. Action: Replace ambient air temperature sensor,P-009,5.6,794.75,R. Okafor,423211
+T-010,2026-05-25,fault,SPN-4094-FMI-31,DEF quality/dosing fault - derate imminent. Action: Verify DEF quality; replace DEF doser if faulty,P-008,2.7,1086.5,L. Nguyen,278069
+T-010,2026-06-18,fault,SPN-111-FMI-17,Coolant level below normal. Action: Top off coolant; pressure-test for leaks,P-004,3.1,575.75,J. Chen,288940
+T-012,2025-02-06,fault,SPN-3719-FMI-0,DPF soot load above critical threshold. Action: Immediate parked regen; replace DPF filter if regen fails,,0.7,94.5,S. Patel,66455
+T-004,2025-05-28,fault,SPN-171-FMI-3,Ambient air temp sensor - voltage above normal. Action: Replace ambient air temperature sensor,,2.9,391.5,M. Alvarez,254713
+T-006,2025-08-17,fault,SPN-171-FMI-3,Ambient air temp sensor - voltage above normal. Action: Replace ambient air temperature sensor,,2.6,351.0,R. Okafor,480185
+T-008,2025-11-08,fault,SPN-791-FMI-5,Trailer ABS lamp circuit - open circuit. Action: Inspect ABS lamp circuit wiring and connector,,3.9,526.5,R. Okafor,80863
+T-012,2025-09-23,fault,SPN-111-FMI-17,Coolant level below normal. Action: Top off coolant; pressure-test for leaks,P-004,4.6,778.25,R. Okafor,73076
+T-006,2025-05-21,fault,SPN-639-FMI-9,J1939 CAN bus - abnormal update rate. Action: Inspect CAN harness and connectors; check terminating resistors,P-006,2.1,401.9,M. Alvarez,495662
+T-005,2026-05-03,fault,SPN-3251-FMI-0,DPF differential pressure too high. Action: Inspect DPF for face-plugging; clean or replace filter,,2.0,270.0,S. Patel,421464
+T-003,2026-02-07,fault,SPN-791-FMI-5,Trailer ABS lamp circuit - open circuit. Action: Inspect ABS lamp circuit wiring and connector,,4.4,594.0,L. Nguyen,304204
+T-002,2025-11-08,fault,SPN-171-FMI-3,Ambient air temp sensor - voltage above normal. Action: Replace ambient air temperature sensor,P-009,4.9,700.25,D. Kowalski,348663
+T-005,2026-01-04,fault,SPN-100-FMI-1,"Engine oil pressure - low, most severe. Action: Stop vehicle; check oil level and pressure sensor; inspect oil pump",,5.8,783.0,J. Chen,430782
+T-006,2025-05-09,fault,SPN-4094-FMI-31,DEF quality/dosing fault - derate imminent. Action: Verify DEF quality; replace DEF doser if faulty,P-008,0.6,803.0,R. Okafor,471167
+T-008,2026-06-18,fault,SPN-3251-FMI-0,DPF differential pressure too high. Action: Inspect DPF for face-plugging; clean or replace filter,,2.0,270.0,L. Nguyen,58721
+T-012,2026-04-27,fault,SPN-111-FMI-17,Coolant level below normal. Action: Top off coolant; pressure-test for leaks,,2.2,297.0,L. Nguyen,75356
+T-010,2025-12-05,fault,SPN-791-FMI-5,Trailer ABS lamp circuit - open circuit. Action: Inspect ABS lamp circuit wiring and connector,P-007,0.5,601.6,M. Alvarez,265984
+T-008,2026-02-26,fault,SPN-4094-FMI-31,DEF quality/dosing fault - derate imminent. Action: Verify DEF quality; replace DEF doser if faulty,P-008,2.2,1019.0,S. Patel,96502
+T-003,2026-02-18,fault,SPN-791-FMI-5,Trailer ABS lamp circuit - open circuit. Action: Inspect ABS lamp circuit wiring and connector,P-007,2.3,844.6,S. Patel,303021
+T-006,2026-03-02,preventive,,Tire rotation and tread depth check,,2.2,297.0,J. Chen,477681
+T-004,2025-06-19,preventive,,Tire rotation and tread depth check,,3.0,405.0,S. Patel,233032
+T-011,2025-12-08,preventive,,"PM-B service: PM-A plus air/fuel filters, valve adjustment check",P-013,3.6,550.0,D. Kowalski,501355
+T-012,2026-05-31,preventive,,"PM-B service: PM-A plus air/fuel filters, valve adjustment check",P-013,1.8,307.0,J. Chen,81621
+T-007,2025-10-27,preventive,,Tire rotation and tread depth check,,1.3,175.5,D. Kowalski,274405
+T-003,2025-06-16,preventive,,"PM-A service: oil & filter change, chassis lube, fluid top-off",P-012,4.9,690.0,S. Patel,318882
+T-002,2025-07-19,inspection,,Brake inspection and adjustment,,2.0,270.0,L. Nguyen,352168
+T-011,2026-05-15,preventive,,"PM-A service: oil & filter change, chassis lube, fluid top-off",P-012,3.6,514.5,J. Chen,486032
+T-012,2026-05-06,preventive,,Tire rotation and tread depth check,,4.2,567.0,L. Nguyen,88798
+T-012,2025-10-26,preventive,,"PM-B service: PM-A plus air/fuel filters, valve adjustment check",P-013,4.1,617.5,J. Chen,83721
+T-012,2025-09-07,preventive,,"PM-A service: oil & filter change, chassis lube, fluid top-off",P-012,1.4,217.5,J. Chen,74046
+T-001,2026-06-13,preventive,,"PM-B service: PM-A plus air/fuel filters, valve adjustment check",P-013,1.9,320.5,J. Chen,293133
+T-005,2025-03-09,inspection,,DOT annual inspection completed,,4.8,648.0,M. Alvarez,441582
+T-009,2026-01-11,preventive,,Tire rotation and tread depth check,,3.0,405.0,S. Patel,525236
+T-009,2025-10-05,preventive,,"PM-B service: PM-A plus air/fuel filters, valve adjustment check",P-013,1.3,239.5,D. Kowalski,488585
+T-012,2025-02-27,preventive,,Tire rotation and tread depth check,,1.2,162.0,M. Alvarez,80646
+T-011,2025-09-17,inspection,,DOT annual inspection completed,,2.6,351.0,S. Patel,498657
+T-004,2026-01-31,preventive,,"PM-A service: oil & filter change, chassis lube, fluid top-off",P-012,4.2,595.5,L. Nguyen,226273
+T-008,2026-04-18,preventive,,Tire rotation and tread depth check,,3.3,445.5,L. Nguyen,95479
+T-008,2026-02-16,inspection,,DOT annual inspection completed,,1.9,256.5,R. Okafor,88841
+T-003,2026-06-26,inspection,,DOT annual inspection completed,,3.9,526.5,S. Patel,319436
+T-012,2026-05-19,preventive,,"PM-A service: oil & filter change, chassis lube, fluid top-off",P-012,4.8,676.5,R. Okafor,96345
+T-005,2025-12-28,inspection,,Brake inspection and adjustment,,2.1,283.5,L. Nguyen,417591
+T-004,2025-04-25,inspection,,Brake inspection and adjustment,,2.3,310.5,R. Okafor,248650
+T-001,2025-10-27,inspection,,Brake inspection and adjustment,,2.9,391.5,M. Alvarez,315429
+T-007,2025-04-09,preventive,,Tire rotation and tread depth check,,2.6,351.0,R. Okafor,274589
+T-999,2026-06-01,repair,,unknown truck,,1,100,X,1
+T-001,2026-06-01,repair,,negative cost,,1,-50,X,1
+T-001,not-a-date,repair,,bad date,,1,10,X,1

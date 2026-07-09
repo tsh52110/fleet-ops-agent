@@ -1,6 +1,6 @@
 {
   "summary": {
-    "run_at_utc": "2026-07-08T07:23:42.746425+00:00",
+    "run_at_utc": "2026-07-09T05:28:47.995977+00:00",
     "mode": "mock (harness/guardrail test \u2014 NOT model quality)",
     "cases": 10,
     "tool_selection_accuracy": "100% (10/10)",

@@ -15,7 +15,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-from src.tools import DEFAULT_DB, run_sql
+from src.tools import DEFAULT_DB, get_data_context, run_sql
 
 ROOT = Path(__file__).resolve().parent
 RESULTS_DIR = ROOT / "evals" / "results"
@@ -109,7 +109,9 @@ def kpi(label: str, value: str, sub: str, kind: str, icon_name: str) -> str:
 # Data helpers
 # ---------------------------------------------------------------------------
 @st.cache_data(ttl=300)
-def fleet_snapshot() -> dict:
+def fleet_snapshot(anchor: str) -> dict:
+    from datetime import date, timedelta
+    since_30d = (date.fromisoformat(anchor) - timedelta(days=30)).isoformat()
     con = sqlite3.connect(f"file:{DEFAULT_DB}?mode=ro", uri=True)
     snap = {
         "total": con.execute("SELECT COUNT(*) FROM trucks").fetchone()[0],
@@ -117,11 +119,12 @@ def fleet_snapshot() -> dict:
         "in_shop": con.execute("SELECT COUNT(*) FROM trucks WHERE status='in_shop'").fetchone()[0],
         "overdue": con.execute(
             "SELECT COUNT(*) FROM trucks WHERE status='active' AND"
-            " (next_service_due_date<'2026-07-08' OR next_service_due_miles<mileage)"
+            " (next_service_due_date<? OR next_service_due_miles<mileage)", (anchor,)
         ).fetchone()[0],
         "low_stock": con.execute("SELECT COUNT(*) FROM parts WHERE stock_qty<min_stock").fetchone()[0],
         "cost_30d": con.execute(
-            "SELECT COALESCE(ROUND(SUM(cost),0),0) FROM maintenance_log WHERE event_date>='2026-06-08'"
+            "SELECT COALESCE(ROUND(SUM(cost),0),0) FROM maintenance_log WHERE event_date>=?",
+            (since_30d,)
         ).fetchone()[0],
     }
     con.close()
@@ -142,12 +145,31 @@ HAS_KEY = bool(os.environ.get("ANTHROPIC_API_KEY"))
 # ---------------------------------------------------------------------------
 # Sidebar
 # ---------------------------------------------------------------------------
+DATA_CTX = get_data_context()
+
 with st.sidebar:
     st.markdown(f'<h2 style="display:flex;align-items:center;gap:8px;margin-bottom:0">'
                 f'{icon("truck", "#1E40AF", 26)} FleetOps</h2>', unsafe_allow_html=True)
-    st.caption("AI maintenance agent over a synthetic fleet database · data anchor 2026-07-08")
+    st.caption(f"AI maintenance agent · reasoning date {DATA_CTX['anchor_date']}")
 
-    snap = fleet_snapshot()
+    # --- Data provenance: what data am I looking at, and is it healthy? ---
+    st.markdown("#### Data source")
+    if DATA_CTX["is_synthetic"]:
+        st.markdown(badge("info", "Synthetic demo data"), unsafe_allow_html=True)
+        st.caption("Seeded generator — every eval answer verifiable against ground truth. "
+                   "Point `FLEETOPS_DB` at an ingested replica for real data.")
+    else:
+        st.markdown(badge("ok", DATA_CTX["source"]), unsafe_allow_html=True)
+        if DATA_CTX["synced_at"]:
+            st.caption(f"Last sync: {DATA_CTX['synced_at'][:16].replace('T', ' ')} UTC")
+    if DATA_CTX["warnings"]:
+        for w in DATA_CTX["warnings"]:
+            st.markdown(badge("warn", w), unsafe_allow_html=True)
+    elif DATA_CTX["synced_at"]:
+        st.markdown(badge("ok", "All quality gates passed"), unsafe_allow_html=True)
+
+    st.divider()
+    snap = fleet_snapshot(DATA_CTX["anchor_date"])
     st.markdown("#### Fleet snapshot")
     st.markdown(
         badge("info", f"{snap['active']} active") + " " +
@@ -324,5 +346,6 @@ with tab_evals:
                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
 st.markdown("---")
-st.caption("All data is synthetic (seeded generator). SQL tool is strictly read-only — "
-           "non-SELECT statements are refused at three layers.")
+st.caption(f"Data source: {DATA_CTX['source']}"
+           + (f" · synced {DATA_CTX['synced_at'][:16].replace('T', ' ')} UTC" if DATA_CTX["synced_at"] else "")
+           + ". SQL tool is strictly read-only — non-SELECT statements are refused at three layers.")

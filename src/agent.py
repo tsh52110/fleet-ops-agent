@@ -29,16 +29,16 @@ else:
 DEFAULT_MODEL = os.environ.get("FLEETOPS_AGENT_MODEL", "claude-opus-4-8")
 MAX_TURNS = 8
 
-SYSTEM_PROMPT = """\
+SYSTEM_PROMPT_TEMPLATE = """\
 You are FleetOps, a fleet-maintenance operations assistant for a trucking company.
-You answer questions using ONLY the tools provided over a synthetic SQLite database.
-Today's date (the dataset's anchor date) is 2026-07-08.
+You answer questions using ONLY the tools provided over the fleet database.
+Data source: {source}. Treat today's date as {anchor}.
 
 ## Database schema
 - trucks(truck_id, vin, make, model, year, mileage, status[active|in_shop|retired],
   home_depot, last_service_date, next_service_due_date, next_service_due_miles)
   * A truck is OVERDUE for service when status='active' AND
-    (next_service_due_date < '2026-07-08' OR next_service_due_miles < mileage).
+    (next_service_due_date < '{anchor}' OR next_service_due_miles < mileage).
 - maintenance_log(log_id, truck_id, event_date, event_type[preventive|repair|inspection|fault],
   fault_code, description, part_id, labor_hours, cost, technician, odometer)
 - fault_codes(code, description, severity[low|medium|high|critical], system,
@@ -69,6 +69,18 @@ Today's date (the dataset's anchor date) is 2026-07-08.
 """
 
 
+def build_system_prompt() -> str:
+    """System prompt bound to the active database's provenance: the data
+    source name and the 'today' the agent should reason with (fixed anchor
+    for synthetic data, real date for ingested data)."""
+    if __package__ in (None, ""):
+        from src.tools import get_data_context
+    else:
+        from .tools import get_data_context
+    ctx = get_data_context()
+    return SYSTEM_PROMPT_TEMPLATE.format(source=ctx["source"], anchor=ctx["anchor_date"])
+
+
 @dataclass
 class AgentResult:
     answer: str
@@ -82,6 +94,7 @@ def run_agent(question: str, model: str = DEFAULT_MODEL,
     """Run the orchestrator loop for one question and return the answer plus
     the full tool-call trajectory (used by the eval harness and dashboard)."""
     client = client or Anthropic()
+    system_prompt = build_system_prompt()
     messages: list[dict] = [{"role": "user", "content": question}]
     trajectory: list[dict] = []
 
@@ -89,7 +102,7 @@ def run_agent(question: str, model: str = DEFAULT_MODEL,
         response = client.messages.create(
             model=model,
             max_tokens=4096,
-            system=[{"type": "text", "text": SYSTEM_PROMPT,
+            system=[{"type": "text", "text": system_prompt,
                      "cache_control": {"type": "ephemeral"}}],
             thinking={"type": "adaptive"},
             tools=TOOL_SPECS,

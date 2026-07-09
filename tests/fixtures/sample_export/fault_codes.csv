@@ -1,0 +1,13 @@
+code,description,severity,system,recommended_action,related_part_id
+SPN-3226-FMI-4,Aftertreatment NOx sensor - voltage below normal,high,aftertreatment,Replace outlet NOx sensor; run forced DPF regen,P-001
+SPN-3719-FMI-0,DPF soot load above critical threshold,critical,aftertreatment,Immediate parked regen; replace DPF filter if regen fails,P-002
+SPN-100-FMI-1,"Engine oil pressure - low, most severe",critical,engine,Stop vehicle; check oil level and pressure sensor; inspect oil pump,P-003
+SPN-111-FMI-17,Coolant level below normal,medium,engine,Top off coolant; pressure-test for leaks,P-004
+SPN-627-FMI-4,Power supply voltage low - battery/charging fault,high,electrical,Load-test batteries; inspect alternator and cables,P-005
+SPN-639-FMI-9,J1939 CAN bus - abnormal update rate,medium,electrical,Inspect CAN harness and connectors; check terminating resistors,P-006
+SPN-791-FMI-5,Trailer ABS lamp circuit - open circuit,low,brakes,Inspect ABS lamp circuit wiring and connector,P-007
+SPN-4094-FMI-31,DEF quality/dosing fault - derate imminent,high,aftertreatment,Verify DEF quality; replace DEF doser if faulty,P-008
+SPN-3251-FMI-0,DPF differential pressure too high,high,aftertreatment,Inspect DPF for face-plugging; clean or replace filter,P-002
+SPN-171-FMI-3,Ambient air temp sensor - voltage above normal,low,engine,Replace ambient air temperature sensor,P-009
+SPN-597-FMI-2,Brake switch data erratic,medium,brakes,Adjust/replace brake pedal switch,P-010
+SPN-1231-FMI-9,Turbocharger speed - abnormal update rate,high,engine,Inspect turbo speed sensor wiring; check turbocharger,P-011

@@ -21,13 +21,17 @@ no code copied verbatim.
 
 from __future__ import annotations
 
+import json
+import os
 import re
 import sqlite3
 from datetime import date, timedelta
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_DB = PROJECT_ROOT / "fleet.db"
+# FLEETOPS_DB points the whole app (tools, agent, dashboard) at an ingested
+# real-data replica (src/ingest.py output); default is the synthetic demo DB.
+DEFAULT_DB = Path(os.environ.get("FLEETOPS_DB", PROJECT_ROOT / "fleet.db"))
 REPORTS_DIR = PROJECT_ROOT / "reports"
 MAX_ROWS = 50
 
@@ -151,7 +155,7 @@ def generate_report(truck_id: str | None = None, days: int = 30,
         dict with report file path, format, and the summary stats included,
         or {"error": ...} for an unknown truck.
     """
-    anchor = date(2026, 7, 8)
+    anchor = date.fromisoformat(get_data_context(db_path)["anchor_date"])
     since = (anchor - timedelta(days=days)).isoformat()
     con = sqlite3.connect(f"file:{Path(db_path)}?mode=ro", uri=True)
 
@@ -238,6 +242,32 @@ def generate_report(truck_id: str | None = None, days: int = 30,
         fmt = "markdown"
 
     return {"report_path": str(path), "format": fmt, "stats": stats}
+
+
+def get_data_context(db_path: str | Path = DEFAULT_DB) -> dict:
+    """Provenance for the active database: where the data came from, when it
+    was synced, any quality warnings, and the 'today' the agent should reason
+    with. Synthetic data uses its fixed anchor date (2026-07-08) so eval
+    reference answers stay valid; ingested real data uses the actual date."""
+    ctx = {"source": "synthetic (seeded generator)", "synced_at": None,
+           "warnings": [], "counts": {}, "anchor_date": "2026-07-08",
+           "is_synthetic": True}
+    try:
+        con = sqlite3.connect(f"file:{Path(db_path)}?mode=ro", uri=True)
+        row = con.execute(
+            "SELECT source, synced_at, counts_json, warnings_json FROM sync_metadata"
+            " ORDER BY sync_id DESC LIMIT 1").fetchone()
+        con.close()
+    except sqlite3.Error:
+        row = None  # no sync_metadata table -> generator-built demo DB
+    if row:
+        source, synced_at, counts, warnings = row
+        ctx.update(source=source, synced_at=synced_at,
+                   counts=json.loads(counts), warnings=json.loads(warnings))
+        if not source.startswith("synthetic"):
+            ctx["is_synthetic"] = False
+            ctx["anchor_date"] = date.today().isoformat()
+    return ctx
 
 
 # ---------------------------------------------------------------------------

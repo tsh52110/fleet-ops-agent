@@ -43,7 +43,19 @@ flowchart LR
   (judge model: `claude-opus-4-8`; rubric in `evals/run_evals.py`). Results export to
   xlsx (per-question + summary).
 - **`app.py`** — ops dashboard: agent chat with tool-call inspection, fleet KPIs,
-  and an Evals tab (metric cards, pass-rate chart, per-question table, xlsx download).
+  a data-provenance panel (source, sync time, quality warnings), and an Evals tab
+  (metric cards, pass-rate chart, per-question table, xlsx download).
+- **`src/connectors/` + `src/ingest.py`** — the real-world data path. Connectors
+  (CSV exports — tested; Samsara API — scaffold; synthetic — demo) feed an ingestion
+  pipeline that validates every row (types, enums, referential integrity, anomaly
+  gates), quarantines bad rows with reasons, records provenance in `sync_metadata`,
+  and produces the read-only replica the agent queries. Architecture + source-system
+  mapping in [docs/PRODUCTION_DATA.md](docs/PRODUCTION_DATA.md).
+
+  ```bash
+  python src/ingest.py --source csv --dir exports/2026-07-08 --out fleet_live.db
+  FLEETOPS_DB=fleet_live.db streamlit run app.py   # agent + UI now use real data
+  ```
 
 ## Eval results
 

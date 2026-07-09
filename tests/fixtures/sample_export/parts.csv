@@ -1,0 +1,14 @@
+part_id,part_name,part_number,unit_cost,stock_qty,min_stock,supplier,lead_time_days
+P-001,NOx Sensor (Outlet),NX-4410-B,412.5,3,6,DieselTech Supply,7
+P-002,DPF Filter Assembly,DPF-9920,1890.0,1,4,ClearFlow Emissions,14
+P-003,Engine Oil Pump,OP-3350,645.0,5,2,HeavyParts Direct,10
+P-004,Coolant Reservoir Tank,CR-1180,157.25,9,3,HeavyParts Direct,5
+P-005,Group 31 AGM Battery,BAT-31AGM,289.99,14,8,VoltMax Distribution,3
+P-006,J1939 CAN Harness Kit,CH-0093,118.4,11,4,DieselTech Supply,6
+P-007,Trailer ABS Control Module,ABS-7742,534.1,6,2,BrakeSafe Inc,9
+P-008,DEF Dosing Unit,DD-2810,722.0,4,3,ClearFlow Emissions,12
+P-009,Ambient Air Temp Sensor,AT-0521,38.75,22,5,DieselTech Supply,4
+P-010,Brake Pedal Switch,BS-1104,45.2,17,5,BrakeSafe Inc,4
+P-011,Turbo Speed Sensor,TS-6600,204.9,7,3,HeavyParts Direct,8
+P-012,Oil Filter (PM Kit),OF-2001,28.5,60,20,HeavyParts Direct,2
+P-013,Air Filter Element,AF-3010,64.0,35,12,HeavyParts Direct,3
